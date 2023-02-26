@@ -26,7 +26,6 @@ func Unpack(str string) (string, error) {
 		if (i+1 < explodedStrLength) && (unicode.IsDigit(explodedString[i+1])) {
 			i++
 			stringNum, err := strconv.Atoi(string(explodedString[i]))
-
 			if err != nil {
 				return "", ErrInvalidString
 			}
