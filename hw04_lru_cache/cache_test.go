@@ -99,9 +99,7 @@ func TestCacheMultithreading(t *testing.T) {
 }
 
 func TestNewCache(t *testing.T) {
-	cache := NewCache(5)
-
-	if cache == nil {
+	if NewCache(5) == nil {
 		t.Error("cache should not be nil")
 	}
 }
