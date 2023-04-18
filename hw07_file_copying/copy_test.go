@@ -51,6 +51,10 @@ func TestCopy(t *testing.T) {
 		for _, c := range cases {
 			t.Run(c.name, func(t *testing.T) {
 				tmpFile, err := os.CreateTemp("", "out.*.txt")
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
 				defer os.Remove(tmpFile.Name())
 
 				copyErr := Copy(fromTest, tmpFile.Name(), c.offset, c.limit)
