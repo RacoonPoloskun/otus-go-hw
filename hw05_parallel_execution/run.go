@@ -3,7 +3,6 @@ package hw05parallelexecution
 import (
 	"errors"
 	"sync"
-	"sync/atomic"
 )
 
 var (
@@ -13,6 +12,24 @@ var (
 )
 
 type Task func() error
+
+type ErrorCount struct {
+	value int
+	mu    sync.RWMutex
+}
+
+func (err *ErrorCount) Add() {
+	err.mu.Lock()
+	err.value++
+	err.mu.Unlock()
+}
+
+func (err *ErrorCount) Get() int {
+	err.mu.RLock()
+	defer err.mu.RUnlock()
+
+	return err.value
+}
 
 func Run(tasks []Task, n, m int) error {
 	if n <= 0 {
@@ -26,7 +43,7 @@ func Run(tasks []Task, n, m int) error {
 	workers := make(chan func() error, n)
 	waitGroup := sync.WaitGroup{}
 
-	var errCount int32
+	errCount := ErrorCount{}
 
 	defer func() {
 		close(workers)
@@ -34,7 +51,7 @@ func Run(tasks []Task, n, m int) error {
 	}()
 
 	for _, task := range tasks {
-		if errCount >= int32(m) {
+		if errCount.Get() >= m {
 			return ErrErrorsLimitExceeded
 		}
 
@@ -49,11 +66,11 @@ func Run(tasks []Task, n, m int) error {
 	return nil
 }
 
-func runTask(task Task, workers chan func() error, errCount *int32, waitGroup *sync.WaitGroup) {
+func runTask(task Task, workers chan func() error, errCount *ErrorCount, waitGroup *sync.WaitGroup) {
 	defer waitGroup.Done()
 
 	if task() != nil {
-		atomic.AddInt32(errCount, 1)
+		errCount.Add()
 	}
 
 	<-workers
