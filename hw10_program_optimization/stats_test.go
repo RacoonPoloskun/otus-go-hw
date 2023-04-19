@@ -17,8 +17,7 @@ func TestGetDomainStat(t *testing.T) {
 {"Id":4,"Name":"Gregory Reid","Username":"tButler","Email":"5Moore@Teklist.net","Phone":"520-04-16","Password":"r639qLNu","Address":"Sunfield Park 20"}
 {"Id":5,"Name":"Janice Rose","Username":"KeithHart","Email":"nulla@Linktype.com","Phone":"146-91-01","Password":"acSBF5","Address":"Russell Trail 61"}
 {"Id":6,"Name":"Tester Bad","Username":"badEmail","Email":"5MooreTeklistnet","Phone":"520-04-15","Password":"r632e9qLNu","Address":"Sunfield Park 20"}
-{"Id":7,"Name":"Tester Bad2","Username":"badEmail2","Email":"5MooreTeklist@","Phone":"520-04-99","Password":"acSBF595","Address":"Sunfield Park 20"}
-`
+{"Id":7,"Name":"Tester Bad2","Username":"badEmail2","Email":"5MooreTeklist@","Phone":"520-04-99","Password":"acSBF595","Address":"Sunfield Park 20"}`
 
 	t.Run("find 'com'", func(t *testing.T) {
 		result, err := GetDomainStat(bytes.NewBufferString(data), "com")
