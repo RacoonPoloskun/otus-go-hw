@@ -30,7 +30,7 @@ func GetDomainStat(r io.Reader, domain string) (DomainStat, error) {
 			return nil, err
 		}
 
-		if !strings.Contains(user.Email, "."+domain) {
+		if !strings.Contains(user.Email, "."+domain) || !strings.Contains(user.Email, "@") {
 			continue
 		}
 
