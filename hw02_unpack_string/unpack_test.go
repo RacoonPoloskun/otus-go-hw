@@ -43,3 +43,21 @@ func TestUnpackInvalidString(t *testing.T) {
 		})
 	}
 }
+
+func TestUnpackEmptyInput(t *testing.T) {
+	input := ""
+	expectedOutput := ""
+
+	output, _ := Unpack(input)
+
+	require.Equal(t, expectedOutput, output)
+}
+
+func TestUnpackUnicodeCharacters(t *testing.T) {
+	input := "😀2☃5"
+	expectedOutput := "😀😀☃☃☃☃☃"
+
+	output, _ := Unpack(input)
+
+	require.Equal(t, expectedOutput, output)
+}
