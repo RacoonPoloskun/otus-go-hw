@@ -50,7 +50,27 @@ func TestCache(t *testing.T) {
 	})
 
 	t.Run("purge logic", func(t *testing.T) {
-		// Write me
+		c := NewCache(3)
+		wasInCache := c.Set("aaa", 100)
+		require.False(t, wasInCache)
+		wasInCache = c.Set("bbb", 200)
+		require.False(t, wasInCache)
+		wasInCache = c.Set("ccc", 300)
+		require.False(t, wasInCache)
+
+		c.Clear()
+
+		val, ok := c.Get("aaa")
+		require.Nil(t, val)
+		require.False(t, ok)
+
+		val, ok = c.Get("bbb")
+		require.Nil(t, val)
+		require.False(t, ok)
+
+		val, ok = c.Get("ccc")
+		require.Nil(t, val)
+		require.False(t, ok)
 	})
 }
 
@@ -76,4 +96,58 @@ func TestCacheMultithreading(t *testing.T) {
 	}()
 
 	wg.Wait()
+}
+
+func TestNewCache(t *testing.T) {
+	if NewCache(5) == nil {
+		t.Error("cache should not be nil")
+	}
+}
+
+func TestSet(t *testing.T) {
+	cache := NewCache(2)
+
+	cache.Set("key1", "value1")
+	cache.Set("key2", "value2")
+	cache.Set("key3", "value3")
+
+	val, ok := cache.Get("key1")
+
+	require.False(t, ok)
+	require.Nil(t, val)
+}
+
+func TestSetExistingKey(t *testing.T) {
+	cache := NewCache(2)
+
+	cache.Set("key1", "value1")
+	cache.Set("key2", "value2")
+	cache.Set("key1", "value3")
+
+	val, _ := cache.Get("key1")
+
+	require.Equal(t, "value3", val)
+}
+
+func TestGetNonExistingKey(t *testing.T) {
+	cache := NewCache(2)
+
+	val, _ := cache.Get("key1")
+
+	require.Equal(t, val, nil)
+}
+
+func TestClear(t *testing.T) {
+	cache := NewCache(2)
+
+	cache.Set("key1", "value1")
+	cache.Set("key2", "value2")
+
+	cache.Clear()
+
+	val, _ := cache.Get("key1")
+	val1, _ := cache.Get("key2")
+
+	require.Nil(t, val)
+	require.Nil(t, val1)
 }
