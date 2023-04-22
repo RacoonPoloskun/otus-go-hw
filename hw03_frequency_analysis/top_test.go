@@ -44,6 +44,42 @@ var text = `Как видите, он  спускается  по  лестни�
 		В этот вечер...`
 
 func TestTop10(t *testing.T) {
+	tests := []struct {
+		name     string
+		text     string
+		expected []string
+	}{
+		{
+			name:     "empty text",
+			text:     "",
+			expected: nil,
+		},
+		{
+			name:     "one word",
+			text:     "Hello",
+			expected: []string{"Hello"},
+		},
+		{
+			name:     "several words",
+			text:     "Hello world! Hello",
+			expected: []string{"Hello", "world!"},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := Top10(tt.text)
+
+			require.Len(t, actual, len(tt.expected))
+
+			for i, item := range actual {
+				if item != tt.expected[i] {
+					t.Fatalf("unexpected item at index %d: got %s, expected %s", i, item, tt.expected[i])
+				}
+			}
+		})
+	}
+
 	t.Run("no words in empty string", func(t *testing.T) {
 		require.Len(t, Top10(""), 0)
 	})
