@@ -1,0 +1,52 @@
+=== RUN   TestGetDomainStat
+=== RUN   TestGetDomainStat/find_'com'
+=== RUN   TestGetDomainStat/find_'gov'
+=== RUN   TestGetDomainStat/find_'unknown'
+=== RUN   TestGetDomainStat/find_'net'
+--- PASS: TestGetDomainStat (0.00s)
+    --- PASS: TestGetDomainStat/find_'com' (0.00s)
+    --- PASS: TestGetDomainStat/find_'gov' (0.00s)
+    --- PASS: TestGetDomainStat/find_'unknown' (0.00s)
+    --- PASS: TestGetDomainStat/find_'net' (0.00s)
+=== RUN   TestGetDomainStat
+=== RUN   TestGetDomainStat/find_'com'
+=== RUN   TestGetDomainStat/find_'gov'
+=== RUN   TestGetDomainStat/find_'unknown'
+=== RUN   TestGetDomainStat/find_'net'
+--- PASS: TestGetDomainStat (0.00s)
+    --- PASS: TestGetDomainStat/find_'com' (0.00s)
+    --- PASS: TestGetDomainStat/find_'gov' (0.00s)
+    --- PASS: TestGetDomainStat/find_'unknown' (0.00s)
+    --- PASS: TestGetDomainStat/find_'net' (0.00s)
+=== RUN   TestGetDomainStat
+=== RUN   TestGetDomainStat/find_'com'
+=== RUN   TestGetDomainStat/find_'gov'
+=== RUN   TestGetDomainStat/find_'unknown'
+=== RUN   TestGetDomainStat/find_'net'
+--- PASS: TestGetDomainStat (0.00s)
+    --- PASS: TestGetDomainStat/find_'com' (0.00s)
+    --- PASS: TestGetDomainStat/find_'gov' (0.00s)
+    --- PASS: TestGetDomainStat/find_'unknown' (0.00s)
+    --- PASS: TestGetDomainStat/find_'net' (0.00s)
+=== RUN   TestGetDomainStat
+=== RUN   TestGetDomainStat/find_'com'
+=== RUN   TestGetDomainStat/find_'gov'
+=== RUN   TestGetDomainStat/find_'unknown'
+=== RUN   TestGetDomainStat/find_'net'
+--- PASS: TestGetDomainStat (0.00s)
+    --- PASS: TestGetDomainStat/find_'com' (0.00s)
+    --- PASS: TestGetDomainStat/find_'gov' (0.00s)
+    --- PASS: TestGetDomainStat/find_'unknown' (0.00s)
+    --- PASS: TestGetDomainStat/find_'net' (0.00s)
+=== RUN   TestGetDomainStat
+=== RUN   TestGetDomainStat/find_'com'
+=== RUN   TestGetDomainStat/find_'gov'
+=== RUN   TestGetDomainStat/find_'unknown'
+=== RUN   TestGetDomainStat/find_'net'
+--- PASS: TestGetDomainStat (0.00s)
+    --- PASS: TestGetDomainStat/find_'com' (0.00s)
+    --- PASS: TestGetDomainStat/find_'gov' (0.00s)
+    --- PASS: TestGetDomainStat/find_'unknown' (0.00s)
+    --- PASS: TestGetDomainStat/find_'net' (0.00s)
+PASS
+ok  	github.com/fixme_my_friend/hw10_program_optimization	0.004s
