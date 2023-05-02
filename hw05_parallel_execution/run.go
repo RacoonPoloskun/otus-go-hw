@@ -40,38 +40,37 @@ func Run(tasks []Task, n, m int) error {
 		return ErrInvalidMaxErrorCount
 	}
 
-	workers := make(chan func() error, n)
+	workers := make(chan Task, len(tasks))
 	waitGroup := sync.WaitGroup{}
 
 	errCount := ErrorCount{}
 
-	defer func() {
-		close(workers)
-		waitGroup.Wait()
-	}()
-
 	for _, task := range tasks {
-		if errCount.Get() >= m {
-			return ErrErrorsLimitExceeded
-		}
+		workers <- task
+	}
+	close(workers)
 
-		workers <- func() error {
-			return nil
-		}
-
+	for i := 0; i < n; i++ {
 		waitGroup.Add(1)
-		go runTask(task, workers, &errCount, &waitGroup)
+		go func() {
+			defer waitGroup.Done()
+			for {
+				if task, ok := <-workers; ok && errCount.Get() < m {
+					if res := task(); res != nil {
+						errCount.Add()
+					}
+				} else {
+					return
+				}
+			}
+		}()
+	}
+
+	waitGroup.Wait()
+
+	if errCount.Get() >= m {
+		return ErrErrorsLimitExceeded
 	}
 
 	return nil
-}
-
-func runTask(task Task, workers chan func() error, errCount *ErrorCount, waitGroup *sync.WaitGroup) {
-	defer waitGroup.Done()
-
-	if task() != nil {
-		errCount.Add()
-	}
-
-	<-workers
 }
